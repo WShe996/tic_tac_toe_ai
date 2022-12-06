@@ -1,0 +1,8 @@
+1 --error function
+4 --number of layers
+><type>
+:{weights}, bias
+:{weights}, bias
+><type 2>
+:{weights}, bias
+:{weights}, bias
