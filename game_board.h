@@ -6,6 +6,10 @@ using namespace std;
 class game_board
 {
     public:
+        game_board(){
+            board_vector = {{0,0,0}, {0,0,0}, {0,0,0}};
+            turn = true;
+        }
 
 
         bool check_win();
@@ -19,6 +23,7 @@ class game_board
 
     private:
         vector<vector<int>> board_vector;
+        bool turn;
 
 };
 
