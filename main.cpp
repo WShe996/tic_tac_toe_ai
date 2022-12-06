@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "neural_network.h"
+#include "game_board.h"
 using namespace std;
 
 int main()
