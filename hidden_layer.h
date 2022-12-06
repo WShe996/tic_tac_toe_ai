@@ -109,7 +109,6 @@ string hidden_layer::get_activation_type()
 		case GCU: return "GCU"; break;
 		case SQU: return "SQU"; break;
 		case NCU: return "NCU"; break;
-		case Nineteen_Eighty_Seven: return funny_egg; break;
 	}
 }
 
@@ -150,6 +149,5 @@ void hidden_layer::load_layer(string & str)
 	else if(str.substr(0,str.find("\n")) == "GCU"){load_type = GCU;}
 	else if(str.substr(0,str.find("\n")) == "SQU"){load_type = SQU;}
 	else if(str.substr(0,str.find("\n")) == "NCU"){load_type = NCU;}
-	else if(str.substr(0,str.find("\n")) == "funny_egg"){load_type = Nineteen_Eighty_Seven;}
 	else{throw invalid_argument("No activation type provided in load file!");}
 }
