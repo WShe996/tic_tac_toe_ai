@@ -28,6 +28,8 @@ class game_board
         /// @return 
         bool play_move(int, int); 
 
+        void print_board();
+
     private:
         vector<vector<int>> board_vector;
         bool turn;
@@ -35,20 +37,46 @@ class game_board
 };
 
 
+int game_board::calc_end_game()
+{
+    if(check_win())
+    {
+        for(int i=0;i<3;i++)
+        {
+            int sum_x = (board_vector[0][i] + board_vector[1][i] + board_vector[2][i]);
+            int sum_y = (board_vector[i][0] + board_vector[i][1] + board_vector[i][2]);
+            if(sum_y * sum_y == 9){return sum_y/3;}
+            else if(sum_x * sum_x == 9){return sum_x/3;}
+        }
+        int diag_positive = board_vector[0][2] + board_vector[1][1] + board_vector[2][0];
+        int diag_negitive = board_vector[0][0] + board_vector[1][1] + board_vector [2][2];
+        if(diag_positive * diag_negitive == 9){return diag_positive/3;}
+        else if(diag_negitive * diag_negitive == 9){return diag_negitive/3;}
+        else{return 0;}
+    }
+    else
+    {
+        throw std::invalid_argument("This is not an endgame board");
+    }
+}
+
 bool game_board::check_win()
 {
-    if((board_vector[0][0]+board_vector[1][1]+board_vector[2][2]==3)||(board_vector[0][0]+board_vector[1][1]+board_vector[2][2]==-3))
+    int player_multiplyer = 0;
+    if(turn){player_multiplyer=-1;}
+    else{player_multiplyer=1;}
+    if(board_vector[0][0]+board_vector[1][1]+board_vector[2][2]== player_multiplyer*3)
     {
         return true;
     }
-    else if((board_vector[2][0]+board_vector[1][1]+board_vector[0][2]==3)||(board_vector[2][0]+board_vector[1][1]+board_vector[0][2]==-3))
+    else if(board_vector[2][0]+board_vector[1][1]+board_vector[0][2]==  player_multiplyer*3)
     {
         return true;
     }
     for(int i=0;i<3;i++)
     {
-        if((board_vector[0][i]+board_vector[1][i]+board_vector[2][i]==3)||(board_vector[0][i]+board_vector[1][i]+board_vector[2][i]==-3)){return true;}
-        if((board_vector[i][0]+board_vector[i][1]+board_vector[i][2]==3)||(board_vector[i][0]+board_vector[i][1]+board_vector[i][2]==-3)){return true;}
+        if(board_vector[0][i]+board_vector[1][i]+board_vector[2][i]== player_multiplyer*3){return true;}
+        else if(board_vector[i][0]+board_vector[i][1]+board_vector[i][2]== player_multiplyer*3){return true;}
     }
     for(int i=0;i<3;i++)
     {
@@ -70,8 +98,24 @@ bool game_board::play_move(int x, int y)
         {
             this->board_vector[x][y]=1;
         }
-        this->board_vector[x][y]=-1;
-        this->turn = ! this->turn;
+        else {
+            this->board_vector[x][y]=-1;
+        }
+        this->turn = !this->turn;
         return true;
+    }
+}
+
+void game_board::print_board()
+{
+    for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<3;j++)
+        {
+            if(board_vector[i][j] == 1){cout << "X";}
+            else if(board_vector[i][j] == 0){cout << " ";}
+            else{cout << "O";}
+        }
+        cout << "\n";
     }
 }
