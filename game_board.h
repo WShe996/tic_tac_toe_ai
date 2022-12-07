@@ -29,7 +29,7 @@ class game_board
 
 
 
-game_board::play_move(int x, int y)
+bool game_board::play_move(int x, int y)
 {
     if((x>=3)||(y>=3)){return false;}
     if(this->board_vector[x][y]!=0){return false;}
