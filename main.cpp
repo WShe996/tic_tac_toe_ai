@@ -7,7 +7,8 @@
 #include "game_board.h"
 using namespace std;
 
-/*
+
+
 void data_parce(vector<vector<double>> & x_dat, vector<vector<double>> & y_dat)
 {
 	fstream _file("data.csv", std::fstream::in);
@@ -28,9 +29,6 @@ void data_parce(vector<vector<double>> & x_dat, vector<vector<double>> & y_dat)
 		temp.clear();
 	}
 }
-
-
-
 int main()
 {
 	vector<vector<double>> x_data;
@@ -38,21 +36,16 @@ int main()
 	data_parce(x_data, y_data);
 	model my_model(9, MSE, 0.02);
 	my_model.add_hidden_layer(tanH, 9);
-	my_model.add_hidden_layer(tanH, 81);
+	my_model.add_hidden_layer(tanH, 16);
 	my_model.add_hidden_layer(tanH, 9);
 	my_model.add_hidden_layer(tanH, 1);
 	my_model.train(x_data, y_data, 50, false);
 	my_model.save("model1.txt");
 	return 0;
-
 }
 
-*/
 
-
-
-
-
+/*
 int main()
 {
 	fstream _file("data.csv", std::fstream::in | std::fstream::app);
@@ -90,3 +83,4 @@ int main()
 	return(0);
 }
 
+*/

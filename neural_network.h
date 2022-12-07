@@ -57,6 +57,7 @@ void model::train(vector<vector<double>> x, vector<vector<double>> y, int epochs
 	vector<double> errors;
 	for(int j=0;j<epochs;j++)
 	{
+		cout << "Epoch " << j+1 << " of " << epochs << "\n";
 		for(int i=0;i<x.size();i++)
 		{
 			results=solve_model(x[i]);

@@ -33,7 +33,7 @@ class game_board
         vector<int> get_game_vector();
 
     private:
-        vector<vector<int>> board_vector;
+        vector<vector<int>> board_vector = {{}};
         bool turn;
 
 };
