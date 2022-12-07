@@ -30,6 +30,8 @@ class game_board
 
         void print_board();
 
+        vector<int> get_game_vector();
+
     private:
         vector<vector<int>> board_vector;
         bool turn;
@@ -118,4 +120,17 @@ void game_board::print_board()
         }
         cout << "\n";
     }
+}
+
+vector<int> game_board::get_game_vector()
+{
+    vector<int> nums;
+    for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<3;j++)
+        {
+            nums.push_back(board_vector[i][j]);
+        }
+    }
+    return nums;
 }
