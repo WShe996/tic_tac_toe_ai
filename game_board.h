@@ -14,6 +14,8 @@ class game_board
 
         bool check_win();
 
+        int calc_end_game();
+
 
         /// @brief Returns true if move is played, false if it cant be played 
         /// @param  2d point x comp
@@ -27,6 +29,11 @@ class game_board
 
 };
 
+
+bool game_board::check_win()
+{
+    if()
+}
 
 
 bool game_board::play_move(int x, int y)
