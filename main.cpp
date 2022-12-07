@@ -13,20 +13,19 @@ int main()
 	mt19937 gen(rd());
 	uniform_int_distribution<> dis(0,2);
 	while(true) {
-	game_board my_game = game_board();
-	while(!my_game.check_win())
-	{
-		int a, b;
-		a = dis(gen);
-		b = dis(gen);
-		if(my_game.play_move(a,b))
+		game_board my_game = game_board();
+		while(!my_game.check_win())
 		{
-			my_game.print_board();
-			cin.get();
-		} 
-	}
-	cout << "the score is " << my_game.calc_end_game() << endl;
-	cin.get();
+			int a, b;
+			a = dis(gen);
+			b = dis(gen);
+			if(my_game.play_move(a,b))
+			{
+				my_game.print_board();
+			} 
+		}
+		cout << "the score is " << my_game.calc_end_game() << endl;
+		cin.get();
 	}
 	return(0);
 }

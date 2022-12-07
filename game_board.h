@@ -50,7 +50,7 @@ int game_board::calc_end_game()
         }
         int diag_positive = board_vector[0][2] + board_vector[1][1] + board_vector[2][0];
         int diag_negitive = board_vector[0][0] + board_vector[1][1] + board_vector [2][2];
-        if(diag_positive * diag_negitive == 9){return diag_positive/3;}
+        if(diag_positive * diag_positive == 9){return diag_positive/3;}
         else if(diag_negitive * diag_negitive == 9){return diag_negitive/3;}
         else{return 0;}
     }
