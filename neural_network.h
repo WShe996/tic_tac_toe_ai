@@ -24,6 +24,7 @@ class model
 {
 	public:
 		model(int, error_function, double);
+		model();
 		void add_hidden_layer(activator_type, int);
 		vector<double> solve_model(vector<double>);
 		vector<double> get_error_vector(vector<double>);
@@ -33,6 +34,7 @@ class model
 		void save(string);
 		void load(string);
 	private:
+		activator_type get_activation_from_string(string);
 		vector<double> MSE_func(vector<double>);
 		vector<double> MSE_derv(vector<double>);
 		void print_vector_n(vector<double>);
@@ -50,6 +52,8 @@ model::model(int start, error_function error, double ln_rate)
 	this->er_func = error;
 	this->lrn_rate = ln_rate;
 }
+
+model::model(){}
 
 void model::train(vector<vector<double>> x, vector<vector<double>> y, int epochs, bool trace)
 {
@@ -258,20 +262,74 @@ void model::load(string fname)
 	fname += ".txt";
 	fstream _file (fname.c_str(), std::fstream::in);
 	string data = "";
-	while(!_file.eof())
-	{
-		getline(_file, data);
-		data += "\n";
-	}
+	string str = "";
+	while(getline(_file, data)){str+=data; str+="\n";}
 	_file.close();
-	string error_val = data.substr(0, data.find("\n"));
-	int data_error = stoi(error_val);
-	data.erase(0,data.find("\n")+1);
-	string layer_val = data.substr(0, data.find("\n"));
-	int data_layer = stoi(layer_val);
-	data.erase(0,data.find("\n")+1);
-	for(int i=0;i<this->network.size();i++)
+	int error_function_int = stoi(str.substr(0,str.find("\n")));
+	str.erase(0,str.find("\n")+1);
+	int starting_layer = stoi(str.substr(0,str.find("\n")));
+	str.erase(0,str.find("\n")+1);
+	switch(error_function_int)
 	{
-		this->network[i].load_layer(data);
+		case 0:
+			this->er_func = NDF;
+			break;
+		case 1:
+			this->er_func = MSE;
+			break;
+		case 2:
+			this->er_func = MAE;
+			break;
+		case 3:
+			this->er_func = MBE;
+			break;
+		case 4:
+			this->er_func = CEL;
+			break;
 	}
+	this->start_nodes = starting_layer;
+	while(true)
+	{
+		string push_through = "";
+		str.erase(0,2);
+		try{
+			activator_type a_type;
+			push_through = str.substr(0,str.find(">"));
+			string str_activator = push_through.substr(0,push_through.find("\n"));
+			a_type = get_activation_from_string(str_activator);
+			push_through.erase(0,push_through.find("\n")+1);
+			//what the hell am I doing with my life lmao this shit is just mind destroying
+			vector<vector<double>> hell;
+			while(true)
+			{
+				string temp_a = push_through.substr(push_through.find("{"), push_through.find("}")-2);
+				
+			}
+			
+		} catch(...) {
+
+		}
+	}
+}
+
+activator_type model::get_activation_from_string(string str)
+{
+	activator_type load_type;
+	if(str == "No activation"){load_type = ND;}
+	else if(str == "identity"){load_type = identity;}
+	else if(str == "binary step"){load_type = binary_step;}
+	else if(str == "sigmoid"){load_type = sigmoid;}
+	else if(str == "tan hyperbolic"){load_type = tanH;}
+	else if(str == "ReLU"){load_type = ReLU;}
+	else if(str == "GELU"){load_type = GELU;}
+	else if(str == "softplus"){load_type = softplus;}
+	else if(str == "leakyRelU"){load_type = leakyReLU;}
+	else if(str == "SiLU"){load_type = SiLU;}
+	else if(str == "mish"){load_type = mish;}
+	else if(str == "gaussian"){load_type = gaussian;}
+	else if(str == "GCU"){load_type = GCU;}
+	else if(str == "SQU"){load_type = SQU;}
+	else if(str == "NCU"){load_type = NCU;}
+	else{throw invalid_argument("No activation type provided in load file!");}
+	return load_type;
 }

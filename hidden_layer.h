@@ -134,20 +134,5 @@ void hidden_layer::load_layer(string & str)
 {
 	activator_type load_type;
 	str.erase(0,str.find(" "));
-	if(str.substr(0,str.find("\n")) == "No activation"){load_type = ND;}
-	else if(str.substr(0,str.find("\n")) == "identity"){load_type = identity;}
-	else if(str.substr(0,str.find("\n")) == "binary step"){load_type = binary_step;}
-	else if(str.substr(0,str.find("\n")) == "sigmoid"){load_type = sigmoid;}
-	else if(str.substr(0,str.find("\n")) == "tan hyperbolic"){load_type = tanH;}
-	else if(str.substr(0,str.find("\n")) == "ReLU"){load_type = ReLU;}
-	else if(str.substr(0,str.find("\n")) == "GELU"){load_type = GELU;}
-	else if(str.substr(0,str.find("\n")) == "softplus"){load_type = softplus;}
-	else if(str.substr(0,str.find("\n")) == "leakyRelU"){load_type = leakyReLU;}
-	else if(str.substr(0,str.find("\n")) == "SiLU"){load_type = SiLU;}
-	else if(str.substr(0,str.find("\n")) == "mish"){load_type = mish;}
-	else if(str.substr(0,str.find("\n")) == "gaussian"){load_type = gaussian;}
-	else if(str.substr(0,str.find("\n")) == "GCU"){load_type = GCU;}
-	else if(str.substr(0,str.find("\n")) == "SQU"){load_type = SQU;}
-	else if(str.substr(0,str.find("\n")) == "NCU"){load_type = NCU;}
-	else{throw invalid_argument("No activation type provided in load file!");}
+	
 }

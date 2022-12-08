@@ -100,7 +100,7 @@ bool game_board::play_move(int x, int y)
         {
             this->board_vector[x][y]=1;
         }
-        else {
+        else { //Y turn
             this->board_vector[x][y]=-1;
         }
         this->turn = !this->turn;

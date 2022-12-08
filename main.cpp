@@ -8,6 +8,17 @@
 using namespace std;
 
 
+int main()
+{
+	model my_model = model();
+	my_model.load("model1");
+	cin.get();
+	return(0);
+}
+
+
+
+/*
 
 void data_parce(vector<vector<double>> & x_dat, vector<vector<double>> & y_dat)
 {
@@ -44,6 +55,7 @@ int main()
 	return 0;
 }
 
+*/
 
 /*
 int main()
