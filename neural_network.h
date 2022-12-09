@@ -191,7 +191,7 @@ vector<double> model::MSE_derv(vector<double> acts)
 
 void model::add_hidden_layer(activator_type type, int num)
 {
-	int size_priv;
+	int size_priv = 0;
 	if(network.size()==0){size_priv=this->start_nodes;}
 	else{size_priv=this->network[network.size()-1].get_layer_size();}
 	hidden_layer layer = hidden_layer(type, num, size_priv);
@@ -245,7 +245,9 @@ void model::save(string fname)
 			break;
 	}
 	data += "\n";
-	data += to_string(this->network.size());
+	data += to_string(this->network[0].get_layer_size());
+	data += "\n";
+	data += to_string(this->lrn_rate);
 	data += "\n";
 	for(int i=0;i<this->network.size();i++)
 	{
@@ -269,6 +271,9 @@ void model::load(string fname)
 	str.erase(0,str.find("\n")+1);
 	int starting_layer = stoi(str.substr(0,str.find("\n")));
 	str.erase(0,str.find("\n")+1);
+	double learn_rate = stod(str.substr(0,str.find("\n")));
+	this->lrn_rate = learn_rate;
+	str.erase(0,str.find("\n")+1);
 	switch(error_function_int)
 	{
 		case 0:
@@ -288,27 +293,52 @@ void model::load(string fname)
 			break;
 	}
 	this->start_nodes = starting_layer;
+	int itor = 0; 
 	while(true)
 	{
+		if(str==""){break;}
 		string push_through = "";
 		str.erase(0,2);
-		try{
+	
 			activator_type a_type;
 			push_through = str.substr(0,str.find(">"));
 			string str_activator = push_through.substr(0,push_through.find("\n"));
 			a_type = get_activation_from_string(str_activator);
 			push_through.erase(0,push_through.find("\n")+1);
 			//what the hell am I doing with my life lmao this shit is just mind destroying
-			vector<vector<double>> hell;
+			vector<pair<vector<double>, double>> hell;
 			while(true)
 			{
-				string temp_a = push_through.substr(push_through.find("{"), push_through.find("}")-2);
-				
+				string temp_a = push_through.substr(push_through.find("{")+1, push_through.find("}")-2);
+				vector<double> temp;
+				while(temp_a.find(",")!=string::npos)
+				{
+					double temp_double = stod(temp_a.substr(0,temp_a.find(",")));
+					temp.push_back(temp_double);
+					temp_a.erase(0,temp_a.find(",")+1);
+					if(temp_a.find(",")==string::npos)
+					{
+						temp.push_back(stod(temp_a));
+						break;
+					}
+				}
+				push_through.erase(0,push_through.find("}")+1);
+				pair<vector<double>, double> temp_pair;
+				double temp_double = stod(push_through.substr(0,push_through.find("\n")));
+				push_through.erase(0,push_through.find("\n")+1);
+				temp_pair.first = temp;
+				temp_pair.second = temp_double;
+				hell.push_back(temp_pair);
+				if(push_through == "\n")
+				{
+					str.erase(0,str.find(">"));
+					add_hidden_layer(a_type, hell.size());
+					this->network[itor].load(hell);
+					itor++;
+					break;
+				}
 			}
-			
-		} catch(...) {
 
-		}
 	}
 }
 

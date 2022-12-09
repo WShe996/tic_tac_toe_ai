@@ -18,7 +18,7 @@ class hidden_layer
 		int get_layer_size();
 		vector<double> back_prop_layer(vector<double>, double, bool);
 		string save_layer();
-		void load_layer(string &);
+		void load(vector<pair<vector<double>,double>>);
 	private:
 		string get_activation_type();
 		vector<double> dE_dZ;
@@ -130,9 +130,11 @@ string hidden_layer::save_layer()
 
 }
 
-void hidden_layer::load_layer(string & str)
+void hidden_layer::load(vector<pair<vector<double>, double>> hell)
 {
-	activator_type load_type;
-	str.erase(0,str.find(" "));
-	
+	for(int i=0;i<hell.size();i++)
+	{
+		node temp_node = node(this->node_type, hell[i].second, hell[i].first);
+		this->layer.push_back(temp_node);
+	}
 }

@@ -111,7 +111,7 @@ void node::print_vector(vector<double> nums)
 	}
 }
 
-vector<double> node::back_prop_node(double num, double ln, bool trace)
+vector<double> node::back_prop_node(double num, double ln, bool trace)    //king shit   P.S. I'm Awesome btw
 {
 	if(trace)
 	{
@@ -522,7 +522,7 @@ double node::ReLU_derv(double num)
 
 double node::tanH_func(vector<double> nums)
 {
-	double sum;
+	double sum =0;
 	for(int i=0;i<nums.size();i++)
 	{
 		double num = nums[i];

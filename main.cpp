@@ -7,18 +7,18 @@
 #include "game_board.h"
 using namespace std;
 
-
+/*
 int main()
 {
 	model my_model = model();
-	my_model.load("model1");
+	my_model.load("model2.txt");
+	vector<double> number = my_model.solve_model({1,1,0,0,0,-1,0,0,-1});
+	cout << number[0] << endl;
 	cin.get();
 	return(0);
 }
+*/
 
-
-
-/*
 
 void data_parce(vector<vector<double>> & x_dat, vector<vector<double>> & y_dat)
 {
@@ -51,11 +51,15 @@ int main()
 	my_model.add_hidden_layer(tanH, 9);
 	my_model.add_hidden_layer(tanH, 1);
 	my_model.train(x_data, y_data, 50, false);
-	my_model.save("model1.txt");
+	my_model.save("model2.txt");
+	vector<double> number = my_model.solve_model({1,1,0,0,0,-1,0,0,-1});
+	cout << number[0] << endl;
+	number = my_model.solve_model({1,1,-1,0,0,0,0,0,-1});
+	cout << number[0] << endl; 
 	return 0;
 }
 
-*/
+
 
 /*
 int main()
