@@ -1,0 +1,10 @@
+build/
+cmake-build-*/
+*.exe
+*.o
+*.obj
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
